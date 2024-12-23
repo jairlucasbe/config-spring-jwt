@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", schema = "auth")
 public class RoleEntity {
 
     @Id
@@ -24,6 +24,11 @@ public class RoleEntity {
     private RoleEnum roleEnum;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    @JoinTable(
+        name = "role_permissions",
+        schema = "auth",
+        joinColumns = @JoinColumn(name = "role_id"),
+        inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
     private Set<PermissionEntity> permissionList = new HashSet<>();
 }
